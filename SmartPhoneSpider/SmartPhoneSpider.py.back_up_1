@@ -1,0 +1,104 @@
+#_*_ coding: utf-8 _*_
+import xlwt
+
+#excel数据写入
+
+class Excel:
+    def __init__(self,style):
+        self.style = style;
+        self.workbook = xlwt.Workbook(encoding='utf-8');
+        self.sheet={};
+    def new_sheet(self,name):
+        self.sheet[name] = self.workbook.add_sheet(name);
+
+    def write(self,sheet_name,row,col,data,style=0):
+        mystyle = 0;
+        if 0 != style:
+            mystyle = style;
+        else:
+            mystyle = self.style;
+        self.sheet[sheet_name].write(row,col,data,mystyle);
+    def save(self,file_name):
+        self.workbook.save(file_name);
+
+
+class Style:
+    def __init__(self):
+        self.style = xlwt.XFStyle();
+        self.font = xlwt.Font();
+        self.font.name = "楷体"; #设置字体
+        self.font.height = 20*20;#20号字体 #设置字体大小,20为基本单位，20表示1号字体，20*1：1号，20*2：2号。t
+        self.alignment = xlwt.Alignment();
+        self.alignment.horz = self.alignment.HORZ_CENTER;
+        self.alignment.vert = self.alignment.VERT_CENTER;
+        self.style.font = self.font;
+        self.style.alignment = self.alignment;
+
+
+
+
+
+
+
+#创建style
+#style = xlwt.XFStyle();
+
+#font
+#font = xlwt.Font();
+
+#font.name = "楷体"; #设置字体
+#font.height = 20*20;#20号字体 #设置字体大小,20为基本单位，20表示1号字体，20*1：1号，20*2：2号。
+
+#fnt.color_index = i  # 设置其字体颜色     
+#font.bold = True # 加粗
+#font.underline = True # 下划线
+#font.struck_out = True; #删除线
+#font.italic = True # 斜体字
+
+#alignment
+#alignment = xlwt.Alignment();
+#alignment.horz = alignment.HORZ_CENTER;
+#alignment.vert = alignment.VERT_CENTER;
+
+
+#pattern
+#pattern.pattern = xlwt.Pattern.SOLID_PATTERN #设置背景填充模式
+#pattern.pattern_fore_colour = 5 # 设置背景色
+
+
+#更改默认style
+#style.font = font;
+#style.alignment = alignment;
+#建立工作簿
+
+
+#workbook = xlwt.Workbook(encoding='utf-8');
+style = Style();
+excel = Excel(style.style);
+name_first = "Excel第一次测试";
+excel.new_sheet(name_first);
+excel.write(name_first,0,0,"测试成功！");
+file_name = "E:\\SmartPhoneSpider\\test.xls";
+excel.save(file_name);
+
+name_two = "Excel第二次测试";
+excel.new_sheet(name_two);
+excel.write(name_two,0,0,"测试成功！");
+excel.save(file_name);
+
+
+
+#添加表格
+#sheet1 = workbook.add_sheet("测试表格");
+
+#写入数据
+#sheet1.write(0,0,"2017年2月19日",style);
+
+#sheet1.write(1,0,"2017年2月10日",style);
+
+#sheet1.write(2,0,"2016年2月28日",style);
+
+
+
+#保存表格
+#workbook.save("E:\\SmartPhoneSpider\\test.xls");
